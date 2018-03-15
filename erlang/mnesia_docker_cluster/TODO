@@ -1,0 +1,10 @@
+//create own docker network
+// cteate script to generate ips - create and reserve cluster nodes ips
+create sys.config with specified node ips and node names
+fix up start script to not use localhost
+replace default sys.configa
+log the contents of the vm, so docker logs, can inspect.
+Create smarter way of first producing a list of ip's hosts, and use that same list in all the processes.
+be able to add more nodes
+if more nodes are added, then the sys.config needs regen
+mount the mnesia dir's in a Volume on the host?

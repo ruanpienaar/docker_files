@@ -1,0 +1,3 @@
+create own network
+create hardcoded ip's and host names, and make sys.config with kernel sync_nodes_mandatory
+set hardcoded ip's and hosts names

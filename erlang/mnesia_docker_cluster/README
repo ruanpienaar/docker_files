@@ -1,0 +1,26 @@
+Start X containers to form a mnesia cluster
+Network Range: 172.19.0.X
+Cluster Size : 10
+
+Docker network setup:
+docker network create --subnet=172.19.0.0/16 docker_net_1
+
+Create the cluster ip details:
+./cluster_config.sh 172.19.0 10
+
+Generate the erlang mnesia cluster sys.config:
+./generate_sys_config.esh
+
+Create the docker image:
+./build.sh
+
+Start the cluster
+./run_cluster.sh docker_net_1
+
+Info:
+
+the erlang nodes are run with longnames, and should use the ip address, to
+avoid having to use domain names.
+
+cluster.sys.config is used as the running config, and template.sys.config as the 
+template for generating the cluster.sys.config.

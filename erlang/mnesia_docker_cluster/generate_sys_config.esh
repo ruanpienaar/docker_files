@@ -1,0 +1,26 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+-mode(compile).
+
+main([]) ->
+    %% Nodes = ['a@localhost', 'b@localhost', 'c@localhost'],
+    {ok, S} = file:read_file("cluster_config"),
+    L = string:tokens(binary_to_list(S), "\n"),
+    Nodes = lists:map(fun(NIP) -> 
+        [Node, IP] = string:tokens(NIP, " "),
+	list_to_atom(Node++"@"++IP)
+    end, L),
+    {ok, [D]} = file:consult("template.sys.config"),
+    {kernel, KernelOpts} = lists:keyfind(kernel, 1, D),
+    NewKernelOpts = lists:keyreplace(sync_nodes_mandatory, 1, KernelOpts, 
+                                     {sync_nodes_mandatory, Nodes}),
+    NewConfig = lists:keyreplace(kernel, 1, D, {kernel, NewKernelOpts}),
+    case file:delete("cluster.sys.config") of
+        ok ->
+            ok;
+        {error, enoent} ->
+            ok
+    end,
+    {ok, FPID} = file:open("cluster.sys.config", [write]),
+    ok = file:write(FPID, io_lib:format("~p.", [NewConfig])),
+    ok = file:close(FPID).
