@@ -24,3 +24,6 @@ avoid having to use domain names.
 
 cluster.sys.config is used as the running config, and template.sys.config as the 
 template for generating the cluster.sys.config.
+
+To See Mnesia Info:
+docker logs CONTAINER_ID

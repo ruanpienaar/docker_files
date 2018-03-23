@@ -11,5 +11,5 @@ cat cluster_config | \
 while read LINE; do
     NODE=`echo $LINE | awk '{ print $1 }'`
     IP=`echo $LINE | awk '{ print $2 }'`
-    ./run.sh $1 $NODE cookie $IP
+    ./run.sh $1 $NODE cookie $IP &
 done
