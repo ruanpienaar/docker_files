@@ -8,3 +8,5 @@ Create smarter way of first producing a list of ip's hosts, and use that same li
 be able to add more nodes
 if more nodes are added, then the sys.config needs regen
 mount the mnesia dir's in a Volume on the host?
+
+Make a example to READ and WRITE data on the cluster?
