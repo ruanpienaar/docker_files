@@ -1,0 +1,56 @@
+version: "3"
+services:
+  node1:
+    environment:
+      NODENAME: node@node1
+    tty: true
+    #depends_on:
+    #  - node2
+    image: erlang_example
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+    networks:
+      - erlangnet
+  node2:
+    environment:
+      NODENAME: node@node2
+    #depends_on:
+    #  - node1
+    tty: true
+    image: erlang_example
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+    networks:
+      - erlangnet
+  node3:
+    environment:
+      NODENAME: node@node3
+    tty: true
+    #depends_on:
+    #  - node4
+    image: erlang_example
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+    networks:
+      - erlangnet
+  node4:
+    environment:
+      NODENAME: node@node4
+    tty: true
+    #depends_on:
+    #  - node3
+    image: erlang_example
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+    networks:
+      - erlangnet
+networks:
+  erlangnet:
