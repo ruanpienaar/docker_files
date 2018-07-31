@@ -38,7 +38,7 @@ create_yml_service_string(ServiceIdStr) ->
     "    environment:~n"
     "      NODENAME: node@~s~n"
     "    tty: true~n"
-    "    image: mnesia_docker_cluster_example~n"
+    "    image: ruanpienaar/mnesia_docker_cluster_example~n"
     "    networks:~n"
     "      - erlangmnesianet~n",
     io_lib:format(S, [ServiceIdStr, ServiceIdStr]).

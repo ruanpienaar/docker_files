@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t mnesia_docker_cluster_example .
+docker build -t ruanpienaar/mnesia_docker_cluster_example .

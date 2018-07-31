@@ -19,4 +19,4 @@ ADD cluster.sys.config .
 RUN mkdir pipe/
 CMD make && \
     epmd -daemon && \
-    erl -sname ${NODENAME} -setcookie ${COOKIE} -config cluster.sys.config -pa $PWD/_build/default/lib/*/ebin -s mnesia_cluster start -boot start_sasl
+    erl -sname ${NODENAME} -setcookie ${COOKIE} -config cluster.sys.config -pa $PWD/_build/default/lib/*/ebin -s mnesia_cluster_lib start -boot start_sasl

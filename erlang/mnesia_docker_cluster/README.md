@@ -19,6 +19,8 @@ $ ./generate_cluster_files.esh NUMBER_OF_NODES
 $ stack_deploy.sh
 ```
 
+./build was used to create the image and push it to docker hub.
+
 cluster.sys.config is used as the running config, and template.sys.config as the
 template for generating the cluster.sys.config.
 
