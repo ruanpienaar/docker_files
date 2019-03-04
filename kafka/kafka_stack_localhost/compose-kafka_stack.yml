@@ -1,0 +1,72 @@
+version: "3"
+
+#networks:
+#  kafka_net:
+
+services:
+    zookeeper:
+        image: ruanpienaar/zookeeper
+        ports:
+          - "2181:2181"
+
+    kafka-server:
+        depends_on: 
+            - zookeeper
+        image: ruanpienaar/kafka-server
+        environment:
+          ZOOKEEPER_HOSTNAME: zookeeper
+        command: /run.sh
+        ports:
+          - "9092:9092"
+
+# Could not get our apps to work .......          
+#    ios_sug_toggle:
+#        depends_on:
+#          - kafka-server
+#        image: registry.gitlab.com/superbet/iosport/ios_sug_toggle:develop
+#        environment:
+#          SHELLY_ENABLED: "false"
+#          KAFIRE_BOOTSTRAP_SERVERS: "ip-10-71-21-153.eu-west-1.compute.internal:9092,kafka-server:9092"
+
+    ios_sug_toggle:
+        tty: true
+        stdin_open: true
+        depends_on:
+          - kafka-server
+        image: registry.hub.docker.com/ruanpienaar/alpine-linux-erlang:21_2
+        volumes:
+          - .:/ios_sug_toggle
+        ports:
+         - "8628:8628"
+        environment:
+          SHELLY_ENABLED: "false"
+          KAFIRE_BOOTSTRAP_SERVERS: "ip-10-71-21-153.eu-west-1.compute.internal:9092,kafka-server:9092"
+          IOS_SUG_TOGGLE_CREATE_TOPICS: "true"
+          IOS_SUG_TOGGLE_GROUP_ID: "local_ios_sug_toggle_group"
+    
+    kafcat_explore_tags:
+        depends_on:
+          - ios_sug_toggle
+        image: registry.gitlab.com/superbet/kafcat:develop
+        environment:
+          SHELLY_ENABLED: "false"
+          KAFIRE_BOOTSTRAP_SERVERS: "ip-10-71-21-153.eu-west-1.compute.internal:9092,kafka-server:9092"
+          KAFCAT_FROM_HOST: "ip-10-71-21-153.eu-west-1.compute.internal:9092"
+          KAFCAT_TO_HOST: "kafka-server:9092"
+          KAFCAT_FROM_TOPIC: "explore_tags"
+          KAFCAT_TO_TOPIC: "explore_tags"
+          KAFCAT_CONSUMER_GROUP: "local_kafka_stack_explore_tags"
+    
+    kafcat_explore_tags_action:
+        depends_on:
+          - ios_sug_toggle
+        image: registry.gitlab.com/superbet/kafcat:develop
+        environment:
+          SHELLY_ENABLED: "false"
+          KAFIRE_BOOTSTRAP_SERVERS: "ip-10-71-21-153.eu-west-1.compute.internal:9092,kafka-server:9092"
+          KAFCAT_FROM_HOST: "ip-10-71-21-153.eu-west-1.compute.internal:9092"
+          KAFCAT_TO_HOST: "kafka-server:9092"
+          KAFCAT_FROM_TOPIC: "explore_tags_action"
+          KAFCAT_TO_TOPIC: "explore_tags_action"
+          KAFCAT_CONSUMER_GROUP: "local_kafka_stack_explore_tags_action"          
+    

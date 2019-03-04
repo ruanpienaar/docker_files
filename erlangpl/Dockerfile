@@ -17,7 +17,6 @@ RUN set -xe \
         && apt-get install -y --no-install-recommends $runtimeDeps \
         && apt-get install -y --no-install-recommends $buildDeps \
         && curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
-        && echo "$OTP_DOWNLOAD_SHA256 otp-src.tar.gz" | sha256sum -c - \
         && mkdir -p /usr/src/otp-src \
         && tar -xzf otp-src.tar.gz -C /usr/src/otp-src --strip-components=1 \
         && rm otp-src.tar.gz \
