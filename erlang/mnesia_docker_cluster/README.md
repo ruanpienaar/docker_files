@@ -14,10 +14,17 @@ to all the other database nodes.
 $ ./generate_cluster_files.esh NUMBER_OF_NODES
 ```
 
-2. deploy the docker stack
+2. build the image locally
+```
+$ ./build.sh
+```
+
+3. deploy the docker stack
 ```
 $ stack_deploy.sh
 ```
+
+
 
 ./build was used to create the image and push it to docker hub.
 

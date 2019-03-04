@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+    zookeeper:
+        image: ruanpienaar/zookeeper
+        ports:
+          - "2181:2181"
+
+    kafka-server-1:
+        depends_on: 
+            - zookeeper
+        image: ruanpienaar/kafka-server:broker_1
+        environment:
+          ZOOKEEPER_HOSTNAME: zookeeper
+          BROKER_ID: 1
+        ports:
+          - "9092:9092"
+          
+    kafka-server-2:
+        depends_on: 
+            - zookeeper
+        image: ruanpienaar/kafka-server:broker_2
+        environment:
+          ZOOKEEPER_HOSTNAME: zookeeper
+          BROKER_ID: 2
+        ports:
+          - "9093:9093"
+   
+    kafka-server-3:
+        depends_on: 
+            - zookeeper
+        image: ruanpienaar/kafka-server:broker_3
+        environment:
+          ZOOKEEPER_HOSTNAME: zookeeper
+          BROKER_ID: 3
+        ports:
+          - "9094:9094"
