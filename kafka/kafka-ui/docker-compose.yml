@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+
+    schema-registry:
+      image: confluentinc/cp-schema-registry:5.1.2
+      hostname: schema-registry
+      ports:
+        - "8081:8081"
+      environment:
+        SCHEMA_REGISTRY_HOST_NAME: schema-registry
+        SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: '192.168.2.15:2181'
+
+    rest-proxy:
+      image: confluentinc/cp-kafka-rest:5.1.2
+      depends_on:
+        - schema-registry
+      ports:
+        - 8082:8082
+      hostname: rest-proxy
+      environment:
+        KAFKA_REST_HOST_NAME: rest-proxy
+        KAFKA_REST_BOOTSTRAP_SERVERS: '192.168.2.15:9092'
+        KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
+        KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+
+    kafka-topics-ui:
+      image: landoop/kafka-topics-ui
+      depends_on:
+        - rest-proxy
+      ports:
+        - "8000:8000"
+      hostname: kafka-topics-ui
+      environment:
+        KAFKA_REST_PROXY_URL: 'http://192.168.2.15:8082'
+        PROXY: 'true'
