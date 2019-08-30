@@ -3,6 +3,8 @@ version: "3"
 services:
     zookeeper:
         image: ruanpienaar/zookeeper
+        hostname: zookeeper.docker
+        network_mode: bridge
         ports:
           - "2181:2181"
 
@@ -10,8 +12,10 @@ services:
         depends_on:
             - zookeeper
         image: ruanpienaar/kafka-server
+        hostname: kafka-broker-1
+        network_mode: bridge
         environment:
-          ZOOKEEPER_HOSTNAME: zookeeper
+          ZOOKEEPER_HOSTNAME: zookeeper.docker
           BROKER_ID: 1
         ports:
           - "9092"
@@ -20,8 +24,10 @@ services:
         depends_on:
             - zookeeper
         image: ruanpienaar/kafka-server
+        hostname: kafka-broker-2
+        network_mode: bridge
         environment:
-          ZOOKEEPER_HOSTNAME: zookeeper
+          ZOOKEEPER_HOSTNAME: zookeeper.docker
           BROKER_ID: 2
         ports:
           - "9093"
@@ -30,8 +36,10 @@ services:
         depends_on:
             - zookeeper
         image: ruanpienaar/kafka-server
+        hostname: kafka-broker-3
+        network_mode: bridge
         environment:
-          ZOOKEEPER_HOSTNAME: zookeeper
+          ZOOKEEPER_HOSTNAME: zookeeper.docker
           BROKER_ID: 3
         ports:
           - "9094"
@@ -39,6 +47,7 @@ services:
     schema-registry:
       image: confluentinc/cp-schema-registry:5.1.2
       hostname: schema-registry
+      network_mode: bridge
       depends_on:
         - zookeeper
         - kafka-broker-1
@@ -52,6 +61,7 @@ services:
 
     rest-proxy:
       image: confluentinc/cp-kafka-rest:5.1.2
+      network_mode: bridge
       depends_on:
         - zookeeper
         - kafka-broker-1
@@ -69,6 +79,7 @@ services:
 
     kafka-topics-ui:
       image: landoop/kafka-topics-ui
+      network_mode: bridge
       depends_on:
         - kafka-broker-1
         - kafka-broker-2

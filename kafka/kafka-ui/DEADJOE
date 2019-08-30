@@ -1,0 +1,14 @@
+
+*** These modified files were found in JOE when it aborted on Wed Mar  6 10:03:14 2019
+*** JOE was aborted by UNIX signal 15
+
+*** File '(Unnamed)'
+docker-compose.yml
+
+*** File '* Startup Log *'
+Processing '/home/knob/.joerc'...
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc
+Finished processing /home/knob/.joerc
