@@ -1,0 +1,11 @@
+version: '3'
+services:
+  nginx-1:
+    image: nginx
+    hostname: nginx-1.docker
+    network_mode: bridge 
+  linux-1:
+    image: alpine
+    hostname: linux-1.docker
+    command: sh -c 'apk add --update bind-tools && tail -f /dev/null'
+    network_mode: bridge # that way he can solve others containers names even inside, solve nginx-2, for example

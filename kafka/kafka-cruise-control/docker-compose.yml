@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+
+    zookeeper:
+        image: ruanpienaar/zookeeper
+        ports:
+          - "2181:2181"
+          
+    kafka-broker-1:
+        image: kafka-server:latest
+        ports:
+          - "9092:9092"
+        depends_on:
+          - zookeeper
+        environment:
+          ZOOKEEPER_HOSTNAME: zookeeper
+          BROKER_ID: 1
+
+    cruise-control-ui:
+        image: registry.gitlab.com/superbet/ops/cruise-control-ui:master
+        ports:
+          - 19091:80
+#        depends_on:
+#          - cruise-control
+    
+    cruise-control:
+        image: registry.gitlab.com/superbet/ops/cruise-control-docker:master
+        ports:
+          - 19090:9090
+        environment:
+          KAFKA_BROKER: kafka-broker-1
+          ZOOKEEPER: zookeeper

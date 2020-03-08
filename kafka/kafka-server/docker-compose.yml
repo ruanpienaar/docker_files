@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+
+    zookeeper:
+        image: ruanpienaar/zookeeper
+        ports:
+          - "2181:2181"
+          
+    kafkabroker0:
+        image: kafka-server:latest
+        ports:
+           - target: 9094
+             published: 9094
+             protocol: tcp
+             mode: host
+        depends_on:
+            - zookeeper
+        environment:
+          ZOOKEEPER_HOSTNAME: zookeeper
+          BROKER_HOSTNAME: kafkabroker0
+          BROKER_PORT: 9094
+          BROKER_ID: 0
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+    
+#    kafkatool:
+#        image: kafkatool:latest
+        #depends_on:
+        #    - kafkabroker0
+#        environment:
+#            DISPLAY: 192.168.1.105:0
+#        volumes:
+#            - "${HOME}/.Xauthority:/root/.Xauthority:rw"
+            
+           

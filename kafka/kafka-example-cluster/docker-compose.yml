@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 
 services:
     zookeeper:
@@ -9,78 +9,39 @@ services:
     kafka-broker-1:
         depends_on:
             - zookeeper
-        image: ruanpienaar/kafka-server
+        image: kafka-server:latest
         environment:
           ZOOKEEPER_HOSTNAME: zookeeper
-          BROKER_ID: 1
+          BROKER_HOSTNAME: localhost
+          BROKER_PORT: 9092
+          BROKER_ID: 0
         ports:
-          - "9092"
+            - "9092:9092"
 
     kafka-broker-2:
         depends_on:
             - zookeeper
-        image: ruanpienaar/kafka-server
+        image: kafka-server:latest
         environment:
           ZOOKEEPER_HOSTNAME: zookeeper
-          BROKER_ID: 2
+          BROKER_HOSTNAME: localhost
+          BROKER_PORT: 9093
+          BROKER_ID: 1
         ports:
-          - "9093"
+            - "9093:9093"
 
     kafka-broker-3:
         depends_on:
             - zookeeper
-        image: ruanpienaar/kafka-server
+        image: kafka-server:latest
         environment:
           ZOOKEEPER_HOSTNAME: zookeeper
+          BROKER_HOSTNAME: localhost
+          BROKER_PORT: 9094
           BROKER_ID: 3
         ports:
-          - "9094"
+            - "9094:9094"
 
-    schema-registry:
-      image: confluentinc/cp-schema-registry:5.1.2
-      hostname: schema-registry
-      depends_on:
-        - zookeeper
-        - kafka-broker-1
-        - kafka-broker-2
-        - kafka-broker-3
-      ports:
-        - "8081:8081"
-      environment:
-        SCHEMA_REGISTRY_HOST_NAME: schema-registry
-        SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
-
-    rest-proxy:
-      image: confluentinc/cp-kafka-rest:5.1.2
-      depends_on:
-        - zookeeper
-        - kafka-broker-1
-        - kafka-broker-2
-        - kafka-broker-3
-        - schema-registry
-      ports:
-        - 8082:8082
-      hostname: rest-proxy
-      environment:
-        KAFKA_REST_HOST_NAME: rest-proxy
-        KAFKA_REST_BOOTSTRAP_SERVERS: 'kafka-broker-1:9092,kafka-broker-1:9092,kafka-broker-1:9092'
-        KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
-        KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
-
-    kafka-topics-ui:
-      image: landoop/kafka-topics-ui
-      depends_on:
-        - kafka-broker-1
-        - kafka-broker-2
-        - kafka-broker-3
-        - rest-proxy
-      ports:
-        - "8000:8000"
-      hostname: kafka-topics-ui
-      environment:
-        KAFKA_REST_PROXY_URL: 'http://rest-proxy:8082'
-        PROXY: 'true'
-    
     kafka-bin:
       tty: true
       stdin_open: true

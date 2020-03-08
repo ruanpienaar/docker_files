@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settings encoding="9223370453184621316">
+<setting data_type="5" dynamic="true" name="browserwindow_hide_detail_panel" value="true"/>
+<setting data_type="1" dynamic="true" name="browserwindow_maxrows" value="100"/>
+<setting data_type="1" dynamic="true" name="browserwindow_maxrows_per_partition" value="50"/>
+<setting data_type="5" dynamic="true" name="confirm_exit" value="true"/>
+<setting data_type="4" dynamic="true" name="dataexport_dest_dir" value=""/>
+<setting data_type="5" dynamic="true" name="dataexport_export_key" value="false"/>
+<setting data_type="5" dynamic="true" name="dataexport_export_message" value="true"/>
+<setting data_type="4" dynamic="true" name="dataexport_key_file_pattern" value="key_#pid#_#oid#.bin"/>
+<setting data_type="2" dynamic="true" name="dataexport_message_ccount" value="1000"/>
+<setting data_type="4" dynamic="true" name="dataexport_message_file_pattern" value="message_#pid#_#oid#.bin"/>
+<setting data_type="4" dynamic="true" name="dataexport_offset_type" value="FIRST"/>
+<setting data_type="5" dynamic="true" name="dataimport_import_key" value="false"/>
+<setting data_type="5" dynamic="true" name="dataimport_import_message" value="true"/>
+<setting data_type="4" dynamic="true" name="dataimport_key_file_pattern" value="key_#pid#_#sid#.bin"/>
+<setting data_type="4" dynamic="true" name="dataimport_message_file_pattern" value="message_#pid#_#sid#.bin"/>
+<setting data_type="4" dynamic="true" name="dataimport_source_dir" value=""/>
+<setting data_type="4" dynamic="true" name="dialogsize_add_server_connection" value="845,445,2150,1209"/>
+<setting data_type="4" dynamic="true" name="dialogsize_main" value="384,196,3072,1728"/>
+<setting data_type="4" dynamic="true" name="dialogsize_settings_dialog" value="614,316,2611,1468"/>
+<setting data_type="1" dynamic="false" name="font_size" value="12"/>
+<setting data_type="5" dynamic="false" name="font_use_default" value="true"/>
+<setting data_type="5" dynamic="true" name="html_escape_json" value="true"/>
+<setting data_type="4" dynamic="true" name="key_type" value="string"/>
+<setting data_type="1" dynamic="true" name="max.messages.bytes" value="1048576"/>
+<setting data_type="4" dynamic="true" name="message_type" value="string"/>
+<setting data_type="1" dynamic="true" name="offset.partition.messages" value="5000"/>
+<setting data_type="4" dynamic="true" name="storm_root" value="/"/>
+<setting data_type="1" dynamic="true" name="zookeeper_timeout" value="10000"/>
+</settings>

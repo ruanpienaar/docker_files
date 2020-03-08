@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<connections>
+<connection bootstrap_servers="" broker_security_type="PLAINTEXT" chroot="/" enable_poller="true" group="1" host="localhost" id="1583672067799" jaas_config="" keystore_location="" name="zookeeper" port="2181" sasl_mechanism="" truststore_location="" validate_ssl_endpoint_hostname="false" version="VERSION_2_3_0">
+<topics/>
+</connection>
+</connections>

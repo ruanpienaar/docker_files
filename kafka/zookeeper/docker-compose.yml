@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+    zookeeper:
+        image: ruanpienaar/zookeeper
+        ports:
+          - "2181:2181"
