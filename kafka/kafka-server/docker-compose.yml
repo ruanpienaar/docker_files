@@ -18,8 +18,6 @@ services:
             - zookeeper
         environment:
           ZOOKEEPER_HOSTNAME: zookeeper
-          BROKER_HOSTNAME: kafkabroker0
-          BROKER_PORT: 9094
           BROKER_ID: 0
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock

@@ -4,17 +4,15 @@ services:
     zookeeper:
         image: ruanpienaar/zookeeper
         ports:
-          - "2181:2181"
+            - "2181:2181"
 
     kafka-broker-1:
         depends_on:
             - zookeeper
         image: kafka-server:latest
         environment:
-          ZOOKEEPER_HOSTNAME: zookeeper
-          BROKER_HOSTNAME: localhost
-          BROKER_PORT: 9092
-          BROKER_ID: 0
+            ZOOKEEPER_HOSTNAME: zookeeper
+            BROKER_ID: 0
         ports:
             - "9092:9092"
 
@@ -23,31 +21,39 @@ services:
             - zookeeper
         image: kafka-server:latest
         environment:
-          ZOOKEEPER_HOSTNAME: zookeeper
-          BROKER_HOSTNAME: localhost
-          BROKER_PORT: 9093
-          BROKER_ID: 1
+            ZOOKEEPER_HOSTNAME: zookeeper
+            BROKER_ID: 1
         ports:
-            - "9093:9093"
+            - "9093:9092"
 
     kafka-broker-3:
         depends_on:
             - zookeeper
         image: kafka-server:latest
         environment:
-          ZOOKEEPER_HOSTNAME: zookeeper
-          BROKER_HOSTNAME: localhost
-          BROKER_PORT: 9094
-          BROKER_ID: 3
+            ZOOKEEPER_HOSTNAME: zookeeper
+            BROKER_ID: 2
         ports:
-            - "9094:9094"
+            - "9094:9092"
 
     kafka-bin:
-      tty: true
-      stdin_open: true
-      image: ruanpienaar/kafka-bin
-      depends_on:
-        - zookeeper
-        - kafka-broker-1
-        - kafka-broker-2
-        - kafka-broker-3
+        tty: true
+        stdin_open: true
+        image: ruanpienaar/kafka-bin
+        depends_on:
+            - zookeeper
+            - kafka-broker-1
+            - kafka-broker-2
+            - kafka-broker-3
+
+    kafkatool:
+        image: kafkatool:latest
+        deploy:
+            restart_policy:
+                condition: on-failure
+                max_attempts: 1
+        environment:
+            DISPLAY: ${DISPLAY}
+        volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix
+            - /var/run/docker.sock:/var/run/docker.sock
