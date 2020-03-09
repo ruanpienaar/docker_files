@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+
+    kafkatool:
+        image: kafkatool:latest
+        deploy:
+            restart_policy:
+                condition: on-failure
+                max_attempts: 1
+        environment:
+            DISPLAY: ${DISPLAY}
+        volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix
+            - /var/run/docker.sock:/var/run/docker.sock
