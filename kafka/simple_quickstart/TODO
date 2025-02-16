@@ -1,0 +1,1 @@
+- use host volume to store kafka data outside of container ( data backed up )
